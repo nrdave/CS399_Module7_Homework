@@ -1,16 +1,18 @@
-# This is a sample Python script.
+"""
+Remove Outliers from a list of words
+Author: Nikhil Dave
+"""
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from wv import Model
+from scipy.stats import zscore
 
+model = Model("models/glove_short.txt")
+while True:
+    words = input("Please enter a comma separated list of words: ").split(",")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+    if len(words) < 3:
+        break
 
+    words = [w.strip() for w in words]
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print(*words, sep=", ", end=".\n")
