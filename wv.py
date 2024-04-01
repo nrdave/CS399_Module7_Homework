@@ -1,22 +1,24 @@
 """
-    Word and Model classes for word vectors.
-    Loads the model into memory, but does not normalize the vectors.
-    Loading even a model with just 100_000 words takes about 5 seconds.
-    Author: Wolf Paulus, https://wolfpaulus.com
+Word and Model classes for word vectors.
+Loads the model into memory, but does not normalize the vectors.
+Loading even a model with just 100_000 words takes about 5 seconds.
+Author: Wolf Paulus, https://wolfpaulus.com
 """
+
 from typing import Self
 from math import sqrt
 from time import process_time
 
 
 class Word:
-    """ Represents a word and its vector"""
+    """Represents a word and its vector"""
+
     def __init__(self, text: str, vector: list[float]) -> None:
         self.text = text
         self.vector = vector
 
     def __repr__(self) -> str:
-        vector_preview = ', '.join(map(str, self.vector[:2]))
+        vector_preview = ", ".join(map(str, self.vector[:2]))
         return f"{self.text} [{vector_preview}, ...]"
 
     def norm(self) -> float:
@@ -40,7 +42,8 @@ class Word:
 
 
 class Model(list):
-    """ Represents a model, a list of words"""
+    """Represents a model, a list of words"""
+
     features = 300
 
     def __init__(self, inp_file_name: str) -> None:
@@ -57,6 +60,8 @@ class Model(list):
         for w in self:
             if w.text == text:
                 return w
+
+        return None
 
     def find_similar_words(self, word: Word, n: int = 10) -> list[Word]:
         return sorted(self, key=lambda w: w.similarity(word), reverse=True)[:n]
