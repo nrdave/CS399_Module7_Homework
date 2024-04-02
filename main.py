@@ -1,5 +1,8 @@
 """
 Remove Outliers from a list of words
+
+This program uses a subset of the Stanford GloVe model to find and remove
+outliers in a list of words.
 Author: Nikhil Dave
 """
 
@@ -16,5 +19,21 @@ while True:
     # Check for minimum word count and that all words are modeled
     if len(words) < 3 or None in modeled_words:
         break
+
+    zscores = list(
+        zscore(
+            [
+                sum([word * w2 - 1 for w2 in modeled_words if w2 is not None])
+                for word in modeled_words
+                if word is not None
+            ]
+        )
+    )
+    zscores = [abs(z) for z in zscores]
+
+    ZSCORE_THRESHOLD = 1.2
+
+    words.remove(words[zscores.index(max(zscores))])
+    words = [w for w, z in zip(words, zscores) if abs(z) < ZSCORE_THRESHOLD]
 
     print(*words, sep=", ", end=".\n")
