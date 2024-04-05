@@ -38,15 +38,20 @@ def remove_outliers(words: list[str]) -> list[str]:
     return words
 
 
-while True:
-    try:
-        words = input(
-            "Please enter a comma separated list of words: ").split(",")
-    except EOFError:
-        break
+def main():
+    while True:
+        try:
+            words = input(
+                "Please enter a comma separated list of words: ").split(",")
+        except EOFError:
+            break
 
-    filtered_words = remove_outliers(words)
-    if not filtered_words:
-        break
+        filtered_words = remove_outliers(words)
+        if not filtered_words:
+            break
 
-    print(*filtered_words, sep=", ", end=".\n")
+        print(*filtered_words, sep=", ", end=".\n")
+
+
+if __name__ == "__main__":
+    main()
