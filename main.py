@@ -36,11 +36,8 @@ def remove_outliers(words: list[str]) -> list[str]:
             ]
         )
     ]
-
     ZSCORE_THRESHOLD = 1.2
-
     words = [w for w, z in zip(words, zscores) if abs(z) < ZSCORE_THRESHOLD]
-
     return words
 
 
