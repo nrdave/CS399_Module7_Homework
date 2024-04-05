@@ -69,7 +69,7 @@ class Model(list):
     def __repr__(self) -> str:
         return f"Model({len(self)} words)"
 
-    def __getitem__(self, text: str) -> Word:
+    def __getitem__(self, text: str) -> Word | None:
         return self.find_word(text)
 
     def __contains__(self, text: str) -> bool:
