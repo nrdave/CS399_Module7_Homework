@@ -9,7 +9,7 @@ Author: Nikhil Dave
 from wv import Model
 from scipy.stats import zscore
 
-model = Model("models/glove_short.txt")
+model = Model("model.txt")
 
 
 def remove_outliers(words: list[str]) -> list[str]:
