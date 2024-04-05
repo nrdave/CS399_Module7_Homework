@@ -19,21 +19,20 @@ while True:
     # Check for minimum word count and that all words are modeled
     if len(words) < 3 or None in modeled_words:
         break
+    for w in modeled_words:
+        w.normalize()
 
-    zscores = list(
-        zscore(
-            [
-                sum([word * w2 - 1 for w2 in modeled_words if w2 is not None])
-                for word in modeled_words
-                if word is not None
-            ]
-        )
+    zscores = zscore(
+        [
+            sum([word.similarity(w2)
+                for w2 in modeled_words if w2 is not word])
+            for word in modeled_words
+        ]
     )
     zscores = [abs(z) for z in zscores]
 
     ZSCORE_THRESHOLD = 1.2
 
-    words.remove(words[zscores.index(max(zscores))])
     words = [w for w, z in zip(words, zscores) if abs(z) < ZSCORE_THRESHOLD]
 
     print(*words, sep=", ", end=".\n")
