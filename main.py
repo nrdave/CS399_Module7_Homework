@@ -9,10 +9,8 @@ Author: Nikhil Dave
 from wv import Model
 from scipy.stats import zscore
 
-model = Model("model.txt")
 
-
-def remove_outliers(words: list[str]) -> list[str]:
+def remove_outliers(model: Model, words: list[str]) -> list[str]:
     """
     Use the loaded model to remove outliers from a list of words
 
@@ -48,13 +46,15 @@ def main():
     This function takes a list of words from the user typed from the running
     terminal and removes the outlier words
     """
+    model = Model("model.txt")
+
     while True:
         try:
             words = input(
                 "Please enter a comma separated list of words: ").split(",")
             # Remove whitespace
             words = [w.strip() for w in words]
-            filtered_words = remove_outliers(words)
+            filtered_words = remove_outliers(model, words)
             if not filtered_words:
                 break
 

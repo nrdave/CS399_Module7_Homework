@@ -5,6 +5,13 @@ Nikhil Dave
 
 import streamlit as st
 from main import remove_outliers
+from wv import Model
+
+
+@st.cache_resource
+def get_model(filename: str):
+    return Model(filename)
+
 
 st.title("Word Outlier Remover")
 
@@ -18,7 +25,7 @@ words = st.text_input(
 # Remove whitespace
 words = [w.strip() for w in words]
 
-filtered_words = remove_outliers(words)
+filtered_words = remove_outliers(get_model("model.txt"), words)
 
 if filtered_words:
     st.subheader("List with outliers removed:")
